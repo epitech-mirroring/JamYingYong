@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Menu_sound_management : MonoBehaviour
+public class MenuSoundManagement : MonoBehaviour
 {
     public AudioClip introAudioClip;
     public AudioClip loopAudioClip;
