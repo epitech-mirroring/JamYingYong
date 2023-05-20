@@ -8,6 +8,7 @@ public class SettingsButton : MonoBehaviour
     public GameObject playButton;
     public GameObject quitButton;
     public GameObject optionButton;
+    public SoundManagement soundManagement;
 
     public void OpenSettings()
     {
@@ -16,6 +17,7 @@ public class SettingsButton : MonoBehaviour
         playButton.SetActive(false);
         quitButton.SetActive(false);
         optionButton.SetActive(false);
+        soundManagement.PlayUIClick();
     }
 
     public void QuitSettings()
@@ -25,5 +27,6 @@ public class SettingsButton : MonoBehaviour
         playButton.SetActive(true);
         quitButton.SetActive(true);
         optionButton.SetActive(true);
+        soundManagement.PlayUIClick();
     }
 }

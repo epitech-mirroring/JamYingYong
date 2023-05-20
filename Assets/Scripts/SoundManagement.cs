@@ -8,6 +8,7 @@ public class SoundManagement : MonoBehaviour
     public GameObject soundSlider;
     public float musicVolume;
     public float soundVolume;
+    public AudioClip uiClickAudioClip;
 
     void Start()
     {
@@ -25,5 +26,10 @@ public class SoundManagement : MonoBehaviour
     {
         Debug.Log("Sound Volume: " + volume);
         soundVolume = volume;
+    }
+
+    public void PlayUIClick()
+    {
+        GetComponent<AudioSource>().PlayOneShot(uiClickAudioClip, soundVolume);
     }
 }
