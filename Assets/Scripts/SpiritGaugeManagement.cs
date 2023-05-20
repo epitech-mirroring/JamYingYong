@@ -17,7 +17,6 @@ public class SpiritGaugeManagement : MonoBehaviour
     private float _scale = 1f;
     private float _whiteRotationSpeed = 50f;
     private float _blackRotationSpeed = 50f;
-    public Image indicator;
 
     void Update()
     {
@@ -28,7 +27,7 @@ public class SpiritGaugeManagement : MonoBehaviour
             UpdateGauges();
             UpdateRotationSpeed();
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.F))
             ChangeState();
         AnimateGauges();
     }
@@ -77,13 +76,10 @@ public class SpiritGaugeManagement : MonoBehaviour
 
     void ChangeState()
     {
-        if (!isWhite) {
+        if (!isWhite)
             _blackRotationSpeed = 50f;
-            indicator.color = new Color32(255,255,225,255);
-        } else {
+        else
             _whiteRotationSpeed = 50f;
-            indicator.color = new Color32(0,0,0,255);
-        }
         isWhite = !isWhite;
     }
 
