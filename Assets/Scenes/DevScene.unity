@@ -269,7 +269,7 @@ MonoBehaviour:
   - {fileID: 545212685}
   - {fileID: 553504573}
   groundSpeed: 5
-  jumpForce: 5
+  jumpForce: 3.5
   airSpeed: 2
 --- !u!23 &154057368
 MeshRenderer:

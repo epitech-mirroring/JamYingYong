@@ -12,10 +12,12 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 5f;
     public float airSpeed = 5f;
     private BoxCollider _hitbox;
+    private Rigidbody _rigidbody;
 
     private void Start()
     {
         _player = gameObject;
+        _rigidbody = _player.GetComponent<Rigidbody>();
         _hitbox = GetComponent<BoxCollider>();
     }
 
@@ -27,13 +29,13 @@ public class PlayerController : MonoBehaviour
         {
             // Jump
             if (Input.GetKeyDown(KeyCode.Space))
-                _player.GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
             
         // Move
         var move = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
         if (!_oldIsGrounded && _isGrounded)
-            _player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            _rigidbody.velocity = Vector3.zero;
         if (_isGrounded)
         {                
             var position = _player.transform.position;
@@ -61,7 +63,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (_oldIsGrounded)
         {
-            _player.GetComponent<Rigidbody>().AddForce(_oldVelocity, ForceMode.Impulse);
+            _rigidbody.AddForce(_oldVelocity, ForceMode.Impulse);
         }
         
         _oldIsGrounded = _isGrounded;
