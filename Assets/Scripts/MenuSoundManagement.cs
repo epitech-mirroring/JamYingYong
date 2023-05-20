@@ -8,12 +8,14 @@ public class MenuSoundManagement : MonoBehaviour
     public AudioClip loopAudioClip;
     public AudioClip outroAudioClip;
     public AudioSource audioSource;
+    public SoundManagement soundManagement;
 
     void Start()
     {
         GetComponent<AudioSource>().clip = introAudioClip;
         GetComponent<AudioSource>().Play();
         GetComponent<AudioSource>().loop = false;
+        GetComponent<AudioSource>().volume = 0.5f;
     }
 
     void Update()
@@ -24,5 +26,6 @@ public class MenuSoundManagement : MonoBehaviour
             GetComponent<AudioSource>().Play();
             GetComponent<AudioSource>().loop = true;
         }
+        GetComponent<AudioSource>().volume = soundManagement.musicVolume;
     }
 }
