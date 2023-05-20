@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuButton : MonoBehaviour
 {
@@ -21,5 +22,6 @@ public class MenuButton : MonoBehaviour
     {
         Debug.Log("Play Game");
         soundManagement.PlayUIClick();
+        SceneManager.LoadScene("Assets/Scenes/Main.unity");
     }
 }
