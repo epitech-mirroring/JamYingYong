@@ -12,20 +12,20 @@ public class MenuSoundManagement : MonoBehaviour
 
     void Start()
     {
-        GetComponent<AudioSource>().clip = introAudioClip;
-        GetComponent<AudioSource>().Play();
-        GetComponent<AudioSource>().loop = false;
-        GetComponent<AudioSource>().volume = 0.5f;
+        audioSource.clip = introAudioClip;
+        audioSource.Play();
+        audioSource.loop = false;
+        audioSource.volume = 0.5f;
     }
 
     void Update()
     {
-        if (!GetComponent<AudioSource>().isPlaying)
+        if (!audioSource.isPlaying)
         {
-            GetComponent<AudioSource>().clip = loopAudioClip;
-            GetComponent<AudioSource>().Play();
-            GetComponent<AudioSource>().loop = true;
+            audioSource.clip = loopAudioClip;
+            audioSource.Play();
+            audioSource.loop = true;
         }
-        GetComponent<AudioSource>().volume = soundManagement.musicVolume;
+        audioSource.volume = soundManagement.musicVolume;
     }
 }

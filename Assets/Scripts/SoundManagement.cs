@@ -18,13 +18,11 @@ public class SoundManagement : MonoBehaviour
 
     public void ChangeMusicVolume(float volume)
     {
-        Debug.Log("Music Volume: " + volume);
         musicVolume = volume;
     }
 
     public void ChangeSoundVolume(float volume)
     {
-        Debug.Log("Sound Volume: " + volume);
         soundVolume = volume;
     }
 

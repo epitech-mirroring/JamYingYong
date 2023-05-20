@@ -12,7 +12,6 @@ public class SettingsButton : MonoBehaviour
 
     public void OpenSettings()
     {
-        Debug.Log("Open Settings");
         settingsPanel.SetActive(true);
         playButton.SetActive(false);
         quitButton.SetActive(false);
@@ -22,7 +21,6 @@ public class SettingsButton : MonoBehaviour
 
     public void QuitSettings()
     {
-        Debug.Log("Quit Settings");
         settingsPanel.SetActive(false);
         playButton.SetActive(true);
         quitButton.SetActive(true);

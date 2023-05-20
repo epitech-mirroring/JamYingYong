@@ -9,7 +9,6 @@ public class MenuButton : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("Quit Game");
         Application.Quit();
         if (UnityEditor.EditorApplication.isPlaying) {
             UnityEditor.EditorApplication.isPlaying = false;
@@ -20,7 +19,6 @@ public class MenuButton : MonoBehaviour
 
     public void PlayGame()
     {
-        Debug.Log("Play Game");
         soundManagement.PlayUIClick();
         SceneManager.LoadScene("Assets/Scenes/Main.unity");
     }
