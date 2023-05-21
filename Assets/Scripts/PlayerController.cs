@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,12 +8,11 @@ public class PlayerController : MonoBehaviour
     private bool _isGrounded;
     private bool _oldIsGrounded = false;
     private Vector3 _oldVelocity;
-    public List<GameObject> feet;
-    public float groundSpeed = 5f;
-    public float jumpForce = 5f;
-    public float airSpeed = 5f;
+    public float groundSpeed = 2f;
+    public float jumpForce = 2f;
     private BoxCollider _hitbox;
     private Rigidbody _rigidbody;
+    private Vector2 _move;
 
     private void Start()
     {
@@ -20,69 +20,49 @@ public class PlayerController : MonoBehaviour
         _rigidbody = _player.GetComponent<Rigidbody>();
         _hitbox = GetComponent<BoxCollider>();
     }
+    
+    public void Jump(InputAction.CallbackContext context)
+    {
+        if (!_isGrounded) return;
+        
+        var state = context.ReadValueAsButton();
+        if (state)
+        {
+            _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+    }
+
+    public void Move(InputAction.CallbackContext context)
+    {
+        _move = context.ReadValue<Vector2>();
+    }
 
     private void Update()
     {
         _isGrounded = IsGrounded();
         
-        if (_isGrounded)
+        // Update position
+        if (_isGrounded && _oldIsGrounded)
         {
-            // Jump
-            if (Input.GetKeyDown(KeyCode.Space))
-                _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            _rigidbody.velocity = new Vector3(_move.x * groundSpeed, _rigidbody.velocity.y, _move.y * groundSpeed);
+            _oldVelocity = _rigidbody.velocity;
         }
-            
-        // Move
-        var move = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
         if (!_oldIsGrounded && _isGrounded)
             _rigidbody.velocity = Vector3.zero;
-        if (_isGrounded)
-        {                
-            var position = _player.transform.position;
-            var oldPosition = position;
-            position += move * ((_isGrounded ? groundSpeed : airSpeed) * Time.deltaTime);
-            // Check if move made the player go through a wall
-            if (Physics.Raycast(position, Vector3.right, out var hit, _hitbox.size.x / 2f * _player.transform.localScale.x))
-            {
-                Debug.DrawRay(position, Vector3.right * hit.distance, Color.red);
-                if (hit.collider.gameObject.CompareTag("Terrain"))
-                {
-                    position.x = hit.point.x - _hitbox.size.x / 2f * _player.transform.localScale.x;
-                }
-            }
-            else if (Physics.Raycast(   position, Vector3.left, out hit, _hitbox.size.x / 2f * _player.transform.localScale.x))
-            {
-                Debug.DrawRay(position, Vector3.left * hit.distance, Color.red);
-                if (hit.collider.gameObject.CompareTag("Terrain"))
-                {
-                    position.x = hit.point.x + _hitbox.size.x / 2f * _player.transform.localScale.x;
-                }
-            }
-            _player.transform.position = position;
-            _oldVelocity = (position - oldPosition) / Time.deltaTime;
-        }
-        else if (_oldIsGrounded)
-        {
-            _rigidbody.AddForce(_oldVelocity, ForceMode.Impulse);
-        }
-        
-        _oldIsGrounded = _isGrounded;
+        if (_oldIsGrounded && !_isGrounded)
+            _rigidbody.velocity = new Vector3(_oldVelocity.x, _rigidbody.velocity.y, _oldVelocity.z);
+
+        _oldIsGrounded = _isGrounded; 
     }
 
     private bool IsGrounded()
     {
         // Check if the player is on the ground
-        bool isGrounded = false;
-        const float raycastDistance = 0.05f;
+        var position = _player.transform.position + (Vector3.down * _hitbox.bounds.extents.y);
+        position.y += 0.01f;
+        var ground = Physics.Raycast(position, Vector3.down, out var hit, Mathf.Infinity);
         
-        for (int i = 0; i < feet.Count && !isGrounded; i++)
-        {
-            var foot = feet[i];
-            var position = foot.transform.position;
-            Physics.Raycast(position, Vector3.down, out var hit, raycastDistance);
-            Debug.DrawRay(position, Vector3.down * raycastDistance, Color.red);
-            isGrounded = hit.collider != null;
-        }
-        return isGrounded;
+        Debug.DrawRay(position, Vector3.down * hit.distance, Color.red);
+        return Mathf.Abs(_rigidbody.velocity.y) <= 0.01f && (ground && hit.collider.gameObject.layer == LayerMask.NameToLayer("Terrain"));
     }
 }
