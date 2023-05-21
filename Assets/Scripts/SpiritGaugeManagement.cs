@@ -24,8 +24,8 @@ public class SpiritGaugeManagement : MonoBehaviour
         _elapsed += Time.deltaTime;
         if (player.isWhite != isWhite)
             ChangeState();
-        if (_elapsed >= 0.1f) {
-            _elapsed = _elapsed % 0.1f;
+        if (_elapsed >= 0.05f) {
+            _elapsed = _elapsed % 0.05f;
             UpdateAgitation();
             UpdateGauges();
             UpdateRotationSpeed();
