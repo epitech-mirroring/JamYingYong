@@ -18,7 +18,7 @@ public class PlayerAnimator : MonoBehaviour
 
     void Update()
     {
-        if (_rigidbody.velocity.x != 0) {
+        if (_rigidbody.velocity.x > 1 || _rigidbody.velocity.x < -1) {
             if ((!_isOrientedRight && _rigidbody.velocity.x > 0) ||
             (_isOrientedRight && _rigidbody.velocity.x < 0)) {
                 _player.transform.Rotate(0, 180, 0);
@@ -26,11 +26,8 @@ public class PlayerAnimator : MonoBehaviour
             }
             animator.SetBool("isRunning", true);
         }
-        if (_rigidbody.velocity.x == 0)
+        if (_rigidbody.velocity.x <= 1 && _rigidbody.velocity.x >= -1)
             animator.SetBool("isRunning", false);
-        if (_rigidbody.velocity.y > 0)
-            animator.SetBool("isJumping", true);
-        if (_rigidbody.velocity.y == 0)
-            animator.SetBool("isJumping", false);
+        animator.SetBool("isJumping", !playerController.IsGrounded());
     }
 }
