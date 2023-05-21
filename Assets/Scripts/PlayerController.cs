@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public GameObject mesh;
     public Material whiteMaterial;
     public Material blackMaterial;
+    public BoxCollider groundCollider;
 
     private void Start()
     {
@@ -90,11 +91,23 @@ public class PlayerController : MonoBehaviour
     public bool IsGrounded()
     {
         // Check if the player is on the ground
-        var position = _player.transform.position + (Vector3.down * _hitbox.bounds.extents.y);
-        position.y += 0.01f;
-        var ground = Physics.Raycast(position, Vector3.down, out var hit, Mathf.Infinity);
-        
-        Debug.DrawRay(position, Vector3.down * hit.distance, Color.red);
-        return Mathf.Abs(_rigidbody.velocity.y) <= 0.01f && (ground && hit.collider.gameObject.layer == LayerMask.NameToLayer("Terrain"));
+        var bounds = groundCollider.bounds;
+        var iterations = 5;
+        for (var i = 0; i < iterations; i++)
+        {
+            var ray = new Ray(new Vector3(bounds.min.x + bounds.size.x / iterations * i, bounds.min.y, bounds.min.z), Vector3.down);
+            if (Physics.Raycast(ray, out var hit, Mathf.Infinity))
+            {
+                if (hit.collider.gameObject != gameObject && hit.distance < 0.3f)
+                {
+                    Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
+                    return true;
+                }
+                Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.yellow);
+                continue;
+            }
+            Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red);
+        }
+        return false;
     }
 }
