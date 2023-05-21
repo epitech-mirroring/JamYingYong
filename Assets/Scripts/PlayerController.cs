@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +9,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 _oldVelocity;
     public float groundSpeed = 2f;
     public float jumpForce = 2f;
+    public float blackJumpForce = 2f;
+    public float whiteJumpForce = 5f;
     private BoxCollider _hitbox;
     private Rigidbody _rigidbody;
     private Vector2 _move;
@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
         if (context.started)
         {
             isWhite = !isWhite;
+            jumpForce = isWhite ? whiteJumpForce : blackJumpForce;
             foreach (var eye in eyes)
             {
                 eye.layer = !isWhite ? LayerMask.NameToLayer("Bloom") : LayerMask.NameToLayer("Default");
@@ -63,15 +64,25 @@ public class PlayerController : MonoBehaviour
         _isGrounded = IsGrounded();
         
         // Update position
-        if (_isGrounded && _oldIsGrounded)
+        if (!isWhite)
+        {
+            if (_isGrounded && _oldIsGrounded)
+            {
+                _rigidbody.velocity = new Vector3(_move.x * groundSpeed, _rigidbody.velocity.y, _move.y * groundSpeed);
+                _oldVelocity = _rigidbody.velocity;
+            }
+
+            if (!_oldIsGrounded && _isGrounded)
+                _rigidbody.velocity = Vector3.zero;
+            if (_oldIsGrounded && !_isGrounded)
+                _rigidbody.velocity = new Vector3(_oldVelocity.x, _rigidbody.velocity.y, _oldVelocity.z);
+        }
+        else
         {
             _rigidbody.velocity = new Vector3(_move.x * groundSpeed, _rigidbody.velocity.y, _move.y * groundSpeed);
             _oldVelocity = _rigidbody.velocity;
         }
-        if (!_oldIsGrounded && _isGrounded)
-            _rigidbody.velocity = Vector3.zero;
-        if (_oldIsGrounded && !_isGrounded)
-            _rigidbody.velocity = new Vector3(_oldVelocity.x, _rigidbody.velocity.y, _oldVelocity.z);
+        
 
         _oldIsGrounded = _isGrounded; 
     }
