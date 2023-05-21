@@ -9,6 +9,7 @@ public class SoundManagement : MonoBehaviour
     public float musicVolume;
     public float soundVolume;
     public AudioClip uiClickAudioClip;
+    public AudioSource audioSource;
 
     void Start()
     {
@@ -28,6 +29,6 @@ public class SoundManagement : MonoBehaviour
 
     public void PlayUIClick()
     {
-        GetComponent<AudioSource>().PlayOneShot(uiClickAudioClip, soundVolume);
+        audioSource.PlayOneShot(uiClickAudioClip, soundVolume);
     }
 }

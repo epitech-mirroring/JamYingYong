@@ -20,6 +20,6 @@ public class MenuButton : MonoBehaviour
     public void PlayGame()
     {
         soundManagement.PlayUIClick();
-        SceneManager.LoadScene("Assets/Scenes/Main.unity");
+        SceneManager.LoadScene("Assets/Scenes/LevelSelection.unity");
     }
 }
