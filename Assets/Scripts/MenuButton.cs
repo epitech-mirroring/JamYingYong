@@ -10,7 +10,7 @@ public class MenuButton : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-        if (UnityEditor.EditorApplication.isPlaying) {
+        if (UnityEditor.EditorApplication.isPlaying) { //Delete this condition to allow build
             UnityEditor.EditorApplication.isPlaying = false;
         }
         soundManagement.PlayUIClick();
