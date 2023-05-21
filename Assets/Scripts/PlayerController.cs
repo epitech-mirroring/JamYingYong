@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,6 +14,11 @@ public class PlayerController : MonoBehaviour
     private BoxCollider _hitbox;
     private Rigidbody _rigidbody;
     private Vector2 _move;
+    public bool isWhite = false;
+    public GameObject[] eyes;
+    public GameObject mesh;
+    public Material whiteMaterial;
+    public Material blackMaterial;
 
     private void Start()
     {
@@ -36,6 +42,21 @@ public class PlayerController : MonoBehaviour
     {
         _move = context.ReadValue<Vector2>();
     }
+    
+    public void SwitchForm(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            isWhite = !isWhite;
+            foreach (var eye in eyes)
+            {
+                eye.layer = !isWhite ? LayerMask.NameToLayer("Bloom") : LayerMask.NameToLayer("Default");
+                eye.SetActive(!isWhite);
+            }
+            mesh.layer = isWhite ? LayerMask.NameToLayer("Bloom") : LayerMask.NameToLayer("Default");
+            mesh.GetComponent<SkinnedMeshRenderer>().material = isWhite ? whiteMaterial : blackMaterial;
+        }
+    }
 
     private void Update()
     {
@@ -55,7 +76,7 @@ public class PlayerController : MonoBehaviour
         _oldIsGrounded = _isGrounded; 
     }
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         // Check if the player is on the ground
         var position = _player.transform.position + (Vector3.down * _hitbox.bounds.extents.y);
