@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
 [Serializable]
-[PostProcess(typeof(LimboRenderer), PostProcessEvent.AfterStack, "Custom/Limbo", allowInSceneView: true)]
+[PostProcess(typeof(LimboRenderer), PostProcessEvent.AfterStack, "Custom/Limbo", allowInSceneView: false)]
 public sealed class Limbo : PostProcessEffectSettings
 {
 }

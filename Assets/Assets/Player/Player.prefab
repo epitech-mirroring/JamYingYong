@@ -35,7 +35,7 @@ Transform:
   m_Children:
   - {fileID: 4369881511621495202}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9101121782893180730
 MonoBehaviour:
@@ -51,6 +51,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundSpeed: 3
   jumpForce: 2.2
+  isWhite: 0
+  eyes:
+  - {fileID: 8494520728030696684}
+  - {fileID: 2183750627590147180}
+  mesh: {fileID: 4373064809869690284}
+  whiteMaterial: {fileID: 2100000, guid: cc56a7aa23c85ee43b60522f7ffdb986, type: 2}
+  blackMaterial: {fileID: 2100000, guid: 18d344419a0679a4287e692cb3492324, type: 2}
 --- !u!114 &3997195918433955529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +217,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 40664c9b-d9e6-4dff-93cd-ab575513737b
     m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9101121782893180730}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: SwitchForm
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ca9d99d8-c280-4ee5-87d2-bdca70394d20
+    m_ActionName: Player/SwitchForm[/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -303,6 +326,26 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 137405302731277726, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 18d344419a0679a4287e692cb3492324, type: 2}
+    - target: {fileID: 2360904785463669408, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.104000166
+      objectReference: {fileID: 0}
+    - target: {fileID: 2360904785463669408, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.115000054
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201448573281206345, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.104
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201448573281206345, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.115
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114485262007393730, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
     - {fileID: 114620049534756106, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
@@ -320,13 +363,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
+--- !u!1 &2183750627590147180 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2520417363292076656, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
+  m_PrefabInstance: {fileID: 4374243857299944988}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4369881511621495202 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4679013640650686, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
   m_PrefabInstance: {fileID: 4374243857299944988}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4373064809869690284 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1214799946412976, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
+  m_PrefabInstance: {fileID: 4374243857299944988}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &4460360089448254358 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 95154219944295818, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
+  m_PrefabInstance: {fileID: 4374243857299944988}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8494520728030696684 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5284681711554814704, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
   m_PrefabInstance: {fileID: 4374243857299944988}
   m_PrefabAsset: {fileID: 0}
