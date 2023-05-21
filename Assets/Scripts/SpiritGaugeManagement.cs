@@ -8,11 +8,12 @@ public class SpiritGaugeManagement : MonoBehaviour
 {
     public GameObject whiteGauge;
     public GameObject blackGauge;
+    public PlayerController player;
     private float _maxAgitation = 60f;
     private float _currentWhiteAgitation = 0f;
     private float _currentBlackAgitation = 0f;
     private float _elapsed = 0f;
-    public bool isWhite = true;
+    public bool isWhite = false;
     private Vector3 _angle = new Vector3(0f, 0f, 0f);
     private float _scale = 1f;
     private float _whiteRotationSpeed = 50f;
@@ -21,14 +22,14 @@ public class SpiritGaugeManagement : MonoBehaviour
     void Update()
     {
         _elapsed += Time.deltaTime;
-        if (_elapsed >= 0.1f) {
-            _elapsed = _elapsed % 0.1f;
+        if (player.isWhite != isWhite)
+            ChangeState();
+        if (_elapsed >= 0.05f) {
+            _elapsed = _elapsed % 0.05f;
             UpdateAgitation();
             UpdateGauges();
             UpdateRotationSpeed();
         }
-        if (Input.GetKeyDown(KeyCode.F))
-            ChangeState();
         AnimateGauges();
     }
 
