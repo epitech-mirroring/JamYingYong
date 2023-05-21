@@ -6,6 +6,6 @@ public class EndLevel1 : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene("Assets/Scenes/Main.unity");
+        SceneManager.LoadScene("Assets/Scenes/LevelSelection.unity");
     }
 }
