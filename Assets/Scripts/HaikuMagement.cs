@@ -6,7 +6,11 @@ using UnityEngine.UI;
 public class HaikuMagement : MonoBehaviour
 {
     public int level = 1;
-    public string[] haikuLines;
+    public string[] haiku1;
+    public string[] haiku2;
+    public string[] haiku3;
+    public string[] haiku4;
+    private string[] haikuLines;
     public Text haikuText;
     private bool _isWriting = false;
     private bool _isHaikuWritten = false;
@@ -17,6 +21,15 @@ public class HaikuMagement : MonoBehaviour
 
     void Start()
     {
+        var rand = Random.Range(0,4);
+        if (rand == 0)
+            haikuLines = haiku1;
+        else if (rand == 1)
+            haikuLines = haiku2;
+        else if (rand == 2)
+            haikuLines = haiku3;
+        else
+            haikuLines = haiku4;
         WriteHaiku();
     }
 
